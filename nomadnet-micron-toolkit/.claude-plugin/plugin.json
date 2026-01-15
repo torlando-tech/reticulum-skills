@@ -1,0 +1,9 @@
+{
+  "name": "nomadnet-micron-toolkit",
+  "version": "0.1.0",
+  "description": "Development toolkit for NomadNet pages and Micron markup language - provides syntax reference, page creation commands, and development assistance",
+  "author": {
+    "name": "Torlando Tech",
+    "email": "torlando-tech@users.noreply.github.com"
+  }
+}
