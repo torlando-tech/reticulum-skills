@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Development toolkit for LXMF protocol - provides specialized knowledge, debugging commands, and development assistance",
   "author": {
-    "name": "Torlando Tech"
+    "name": "Torlando Tech",
+    "email": "torlando-tech@users.noreply.github.com"
   }
 }
