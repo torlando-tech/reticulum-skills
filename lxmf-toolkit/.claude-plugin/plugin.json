@@ -1,0 +1,8 @@
+{
+  "name": "lxmf-toolkit",
+  "version": "0.1.0",
+  "description": "Development toolkit for LXMF protocol - provides specialized knowledge, debugging commands, and development assistance",
+  "author": {
+    "name": "Torlando Tech"
+  }
+}
