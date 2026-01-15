@@ -18,6 +18,11 @@
       "name": "nomadnet-micron-toolkit",
       "description": "Development toolkit for NomadNet pages and Micron markup - syntax reference, page creation, and parser implementation guidance",
       "source": "./nomadnet-micron-toolkit"
+    },
+    {
+      "name": "reticulum-protocol",
+      "description": "Comprehensive protocol knowledge base for implementing Reticulum with byte-perfect interoperability - 9 skills covering wire format, cryptography, routing, and utilities",
+      "source": "./reticulum-protocol"
     }
   ]
 }

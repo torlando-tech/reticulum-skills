@@ -6,6 +6,7 @@ Claude Code plugins for [Reticulum Network Stack](https://reticulum.network/) an
 
 | Plugin | Description |
 |--------|-------------|
+| **[reticulum-protocol](./reticulum-protocol)** | Comprehensive protocol knowledge for implementing Reticulum with byte-perfect interoperability |
 | **[lxmf-toolkit](./lxmf-toolkit)** | Development toolkit for LXMF (Lightweight Extensible Message Format) protocol |
 
 ## Installation
@@ -27,6 +28,23 @@ claude --plugin-dir /path/to/reticulum-skills/lxmf-toolkit
 ```
 
 ## Plugins
+
+### reticulum-protocol
+
+Comprehensive protocol knowledge base for implementing Reticulum in any programming language with byte-perfect interoperability.
+
+**Components:**
+- **9 Skills** (auto-triggering on protocol concepts):
+  - `transport-routing` - Packet routing, path tables, multi-hop forwarding
+  - `links` - Link establishment, ECDH key exchange, keepalives
+  - `resources` - Large data transfer, windowing, compression
+  - `destinations` - Address types, hash calculation, naming
+  - `packets-wire-format` - Binary packet structure, MTU/MDU, headers
+  - `cryptography-identity` - Ed25519, X25519, HKDF, token format
+  - `interfaces` - Interface types, IFAC, announce propagation modes
+  - `announce-mechanism` - Path discovery, announce format, bandwidth management
+  - `reticulum-utilities` - rnpath, rnprobe, rnid, rnstatus utilities
+- **Agent**: `protocol-implementation-assistant` - Proactive assistance for implementing Reticulum protocol in any language
 
 ### lxmf-toolkit
 
