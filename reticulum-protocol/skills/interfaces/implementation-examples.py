@@ -8,10 +8,16 @@ physical media by signing all packets with a network-specific Ed25519 key.
 
 Only interfaces configured with matching network name and/or passphrase
 can communicate - others see invalid signatures and drop packets.
+
+Dependencies: pip install cryptography
 """
 
-import RNS
 import hashlib
+
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+from cryptography.hazmat.backends import default_backend
 
 # IFAC configuration
 IFAC_NETNAME = "private_mesh"           # Virtual network name
@@ -20,6 +26,24 @@ IFAC_SIZE = 16                          # Signature size in bytes (1-64)
 
 # Reticulum IFAC salt (fixed constant from RNS.Reticulum)
 IFAC_SALT = bytes.fromhex("adf54d882c9a9b80771eb4995d702d4a3e733391b2a0f53f416d9f907e55cff8")
+
+
+def full_hash(data: bytes) -> bytes:
+    """SHA-256 hash (equivalent to RNS.Identity.full_hash)"""
+    return hashlib.sha256(data).digest()
+
+
+def hkdf_derive(length: int, derive_from: bytes, salt: bytes) -> bytes:
+    """HKDF key derivation (equivalent to RNS.Cryptography.hkdf)"""
+    hkdf = HKDF(
+        algorithm=hashes.SHA256(),
+        length=length,
+        salt=salt,
+        info=b"",  # Reticulum uses empty info (context=None)
+        backend=default_backend()
+    )
+    return hkdf.derive(derive_from)
+
 
 print("=" * 70)
 print("IFAC (Interface Access Code) Calculation Example")
@@ -30,8 +54,8 @@ print()
 print("Step 1: Hash network name and passphrase")
 print("-" * 70)
 
-netname_hash = RNS.Identity.full_hash(IFAC_NETNAME.encode("utf-8"))
-netkey_hash = RNS.Identity.full_hash(IFAC_NETKEY.encode("utf-8"))
+netname_hash = full_hash(IFAC_NETNAME.encode("utf-8"))
+netkey_hash = full_hash(IFAC_NETKEY.encode("utf-8"))
 
 print(f"Network name:  {IFAC_NETNAME}")
 print(f"  SHA-256:     {netname_hash.hex()}")
@@ -53,7 +77,7 @@ print()
 print("Step 3: Hash IFAC origin")
 print("-" * 70)
 
-ifac_origin_hash = RNS.Identity.full_hash(ifac_origin)
+ifac_origin_hash = full_hash(ifac_origin)
 print(f"SHA-256(ifac_origin):")
 print(f"  {ifac_origin_hash.hex()}")
 print()
@@ -62,18 +86,17 @@ print()
 print("Step 4: Derive IFAC key via HKDF")
 print("-" * 70)
 
-ifac_key = RNS.Cryptography.hkdf(
+ifac_key = hkdf_derive(
     length=64,
     derive_from=ifac_origin_hash,
-    salt=IFAC_SALT,
-    context=None
+    salt=IFAC_SALT
 )
 
 print(f"HKDF parameters:")
 print(f"  Input:       ifac_origin_hash (32 bytes)")
 print(f"  Salt:        IFAC_SALT (32 bytes, fixed Reticulum constant)")
 print(f"  Length:      64 bytes")
-print(f"  Context:     None")
+print(f"  Info:        empty (Reticulum uses context=None)")
 print()
 print(f"Derived IFAC key (64 bytes):")
 print(f"  {ifac_key.hex()}")
@@ -83,17 +106,27 @@ print()
 print("Step 5: Generate Ed25519 identity from IFAC key")
 print("-" * 70)
 
-ifac_identity = RNS.Identity.from_bytes(ifac_key)
+# In Reticulum, the 64-byte IFAC key is split:
+# - First 32 bytes: encryption key (X25519) - not used for IFAC signing
+# - Last 32 bytes: signing key seed (Ed25519)
+# The signing key is what we use for IFAC signatures
+signing_seed = ifac_key[32:64]  # Last 32 bytes
+ifac_private_key = Ed25519PrivateKey.from_private_bytes(signing_seed)
+ifac_public_key = ifac_private_key.public_key()
+
+# Get raw public key bytes
+public_key_bytes = ifac_public_key.public_bytes_raw()
 
 print(f"Ed25519 identity created from IFAC key")
-print(f"  Public key:  {ifac_identity.get_public_key().hex()}")
+print(f"  Signing seed (last 32 bytes of IFAC key): {signing_seed.hex()}")
+print(f"  Public key:  {public_key_bytes.hex()}")
 print()
 
 # Step 6: Sign the IFAC key itself (self-signature for verification)
 print("Step 6: Create IFAC self-signature")
 print("-" * 70)
 
-ifac_signature = ifac_identity.sign(RNS.Identity.full_hash(ifac_key))
+ifac_signature = ifac_private_key.sign(full_hash(ifac_key))
 
 print(f"Ed25519 signature of SHA-256(ifac_key):")
 print(f"  Full (64 bytes): {ifac_signature.hex()}")
@@ -113,7 +146,7 @@ print(f"Example packet (hex): {example_packet.hex()}")
 print()
 
 # Sign the packet
-packet_ifac = ifac_identity.sign(example_packet)
+packet_ifac = ifac_private_key.sign(example_packet)
 packet_ifac_truncated = packet_ifac[-IFAC_SIZE:]
 
 print(f"Ed25519 signature of packet:")
@@ -130,11 +163,10 @@ print("-" * 70)
 # In real implementation, IFAC is inserted into packet and entire packet is masked
 packet_with_ifac_length = len(example_packet) + IFAC_SIZE
 
-mask = RNS.Cryptography.hkdf(
+mask = hkdf_derive(
     length=packet_with_ifac_length,
     derive_from=packet_ifac_truncated,  # Mask derived from IFAC itself
-    salt=ifac_key,                      # Using IFAC key as salt
-    context=None
+    salt=ifac_key                       # Using IFAC key as salt
 )
 
 print(f"Packet + IFAC length: {packet_with_ifac_length} bytes")
