@@ -469,7 +469,7 @@ elif packet_type == 1:  # ANNOUNCE
 
 ## Key Implementation Notes
 
-1. **Byte Order**: All multi-byte integers use network byte order (big-endian, `!` format in struct)
+1. **Byte Order**: All multi-byte integers use network byte order (big-endian, ``!`` format in struct)
 
 2. **Hash Truncation**: Full SHA-256 hashes (256 bits) are truncated to 128 bits (16 bytes) for addresses
 
