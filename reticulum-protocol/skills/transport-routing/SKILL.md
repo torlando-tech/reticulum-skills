@@ -291,6 +291,64 @@ When announce received:
 - Update path_table with next-hop information
 - Queue for rebroadcast based on interface bandwidth
 
+### Shared Instance Routing
+
+When a Reticulum instance acts as a **shared instance server** (via `LocalServerInterface`), it routes traffic between external network interfaces and locally connected client applications. This architecture enables multiple applications on the same machine to share a single Reticulum instance.
+
+**Key Architecture**: Shared instances maintain two packet flow paths:
+
+**1. PLAIN+BROADCAST Packet Flow** (Path requests, etc.):
+```python
+# Handled in main inbound processing (Transport.inbound():1300-1308)
+if packet.destination_type == RNS.Destination.PLAIN and packet.transport_type == Transport.BROADCAST:
+    if from_local_client:
+        # Forward to all interfaces EXCEPT originator
+        for interface in Transport.interfaces:
+            if interface != packet.receiving_interface:
+                Transport.transmit(interface, packet.raw)
+    else:
+        # Forward to all local clients
+        for interface in Transport.local_client_interfaces:
+            Transport.transmit(interface, packet.raw)
+```
+
+**2. ANNOUNCE Packet Flow** (Critical for network discovery):
+```python
+# Handled in announce processing (Transport.py:1697-1742)
+if len(Transport.local_client_interfaces):
+    for local_interface in Transport.local_client_interfaces:
+        if packet.receiving_interface != local_interface:
+            new_announce = RNS.Packet(
+                announce_destination,
+                announce_data,
+                RNS.Packet.ANNOUNCE,
+                transport_type = Transport.TRANSPORT,
+                transport_id = Transport.identity.hash,
+                attached_interface = local_interface
+            )
+            new_announce.hops = packet.hops
+            new_announce.send()  # Immediate transmission
+```
+
+**Critical Difference**: ANNOUNCE packets are **immediately retransmitted** to all local client interfaces when received, bypassing the normal announce queue and rate limiting. This ensures clients get instant network visibility without queue processing delays.
+
+**Why Two Mechanisms?**
+- **PLAIN+BROADCAST**: Simple forwarding for single-hop packets (path requests)
+- **ANNOUNCE**: Must handle multi-hop propagation with proper transport_id stamping and immediate delivery for network discovery
+
+**Implementation Note**: When implementing shared instance support, announces MUST be handled specially in `processAnnounce()` with immediate retransmission to `local_client_interfaces`, not queued like normal announce propagation.
+
+**Interface Identification**:
+```python
+# Mark server interface
+is_local_shared_instance = True  # On LocalServerInterface
+
+# Track spawned client interfaces
+Transport.local_client_interfaces = []  # List of interfaces spawned by server
+```
+
+**Common Bug**: Forgetting immediate announce retransmission causes clients to see no network announces even though the server receives them. Announces get stuck in rate-limited queues instead of flowing immediately to clients.
+
 ## Further Reading
 
 For detailed protocol specifications and wire-level examples, see:
@@ -312,3 +370,5 @@ For related protocol concepts:
 **Source References:**
 - `https://github.com/markqvist/Reticulum/RNS/Transport.py` (lines 43-250)
 - `https://github.com/markqvist/Reticulum/docs/source/understanding.rst` (lines 367-430)
+- `https://github.com/markqvist/Reticulum/RNS/Transport.py` (lines 1697-1742) - Shared instance announce forwarding
+- `https://github.com/torlando-tech/reticulum-kt/rns-core/src/main/kotlin/network/reticulum/transport/Transport.kt` (lines 2319-2338) - Kotlin implementation
