@@ -1,6 +1,6 @@
 {
   "name": "reticulum-protocol",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Comprehensive knowledge base for implementing the Reticulum protocol with byte-perfect interoperability",
   "author": {
     "name": "Torlando Tech",
