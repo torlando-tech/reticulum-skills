@@ -1,60 +1,46 @@
 ---
 name: nomadnet-developer
-description: |
-  Use this agent when working on NomadNet pages, Micron markup, or Micron parser implementations. Provides deep knowledge of markup syntax, page structure, and parser design patterns.
+description: >
+  Proactively assists with NomadNet page development, Micron markup syntax, and parser implementations.
+  Triggers when creating NomadNet pages, working with Micron markup (.mu files), debugging page rendering,
+  or implementing Micron parsers in any language.
+whenToUse: |
+  Trigger this agent proactively when:
+  - Creating or editing NomadNet pages (.mu files)
+  - Working with Micron markup syntax (formatting, links, fields, colors)
+  - Debugging page rendering or syntax issues
+  - Implementing or porting a Micron parser to any language
+  - Questions about NomadNet page structure, authentication, or dynamic pages
+  - Setting up a NomadNet node or serving pages
 
   <example>
-  Context: User is editing a .mu file
-  user: "I'm creating a login form for my NomadNet node"
-  assistant: "I'll help you create a login form with proper Micron markup including styled input fields and form submission."
-  <commentary>
-  Trigger: Creating NomadNet page with forms requires knowledge of Micron field syntax and form submission patterns.
-  </commentary>
+  user: "I want to create a NomadNet page"
+  → trigger: yes - NomadNet page development
   </example>
 
   <example>
-  Context: User is debugging page rendering
+  user: "How do I add a link in Micron?"
+  → trigger: yes - Micron syntax question
+  </example>
+
+  <example>
   user: "Why isn't my Micron link working?"
-  assistant: "Let me analyze your link syntax. Micron links use the format `[label`destination] with backticks."
-  <commentary>
-  Trigger: Debugging Micron syntax requires knowledge of correct tag formats and common issues.
-  </commentary>
+  → trigger: yes - debugging Micron syntax
   </example>
 
   <example>
-  Context: User is implementing a parser
-  user: "I'm porting the Micron parser to Kotlin for Android"
-  assistant: "I can help you implement a Micron parser. Let me explain the state machine approach and key parsing patterns."
-  <commentary>
-  Trigger: Implementing a new Micron parser requires understanding of parsing algorithms and reference implementations.
-  </commentary>
+  user: "I'm porting the Micron parser to Kotlin"
+  → trigger: yes - parser implementation
   </example>
 
   <example>
-  Context: User is working on MicronParser.py or similar
-  user: "I'm modifying the color handling in MicronParser.py"
-  assistant: "I can help with the Micron parser internals. The color system uses 3-digit hex that expands to 6-digit."
-  <commentary>
-  Trigger: Editing core parser files requires deep knowledge of Micron parsing internals.
-  </commentary>
-  </example>
-
-  <example>
-  Context: User asks about dynamic pages
   user: "How do I make a dynamic page that shows server status?"
-  assistant: "Create an executable .mu file with a Python shebang that outputs Micron markup with status information."
-  <commentary>
-  Trigger: Creating dynamic NomadNet pages requires knowledge of executable pages and environment variables.
-  </commentary>
+  → trigger: yes - dynamic NomadNet page development
   </example>
 
   <example>
-  Context: General Python update request
-  user: "Update the Python version in requirements.txt"
-  assistant: "[Handle normally without this agent]"
-  <commentary>
-  No trigger: General Python tasks unrelated to Micron/NomadNet don't need this specialized agent.
-  </commentary>
+  user: "Update the README"
+  → trigger: no - general documentation task
   </example>
 model: inherit
 color: cyan
