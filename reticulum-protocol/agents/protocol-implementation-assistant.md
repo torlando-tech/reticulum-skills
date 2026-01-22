@@ -1,15 +1,46 @@
 ---
 description: >
-  This agent assists developers implementing the Reticulum protocol in any programming language,
-  helping achieve byte-perfect interoperability with the Python reference implementation.
+  Proactively assists with Reticulum protocol implementation, porting, and debugging.
+  Triggers when implementing Reticulum in any language, working on wire format, packet
+  structure, cryptographic operations, or debugging interoperability issues.
+whenToUse: |
+  Trigger this agent proactively when:
+  - Implementing Reticulum protocol in any programming language (Rust, Go, C++, etc.)
+  - Porting Reticulum to a new platform or language
+  - Working on wire format, packet structure, or binary protocol details
+  - Debugging interoperability issues between implementations
+  - Questions about cryptographic operations (key derivation, encryption, signatures)
+  - Understanding protocol constants, header formats, or MTU handling
 
-whenToUse: >
-  Invoke when the user mentions implementing Reticulum in another language, porting Reticulum,
-  working on wire-level protocol implementation, debugging protocol interop issues, or asking
-  about byte-level protocol details. Trigger examples: "implement reticulum in [language]",
-  "port reticulum to [language]", "reticulum wire format", "how do I implement [protocol feature]",
-  "my implementation can't decrypt packets", "show me byte structure of [packet type]".
+  <example>
+  user: "I'm implementing Reticulum in Rust"
+  → trigger: yes - protocol implementation
+  </example>
 
+  <example>
+  user: "How do I construct a packet header?"
+  → trigger: yes - wire format question
+  </example>
+
+  <example>
+  user: "My implementation can't decrypt link packets from Python"
+  → trigger: yes - interoperability debugging
+  </example>
+
+  <example>
+  user: "What's the byte structure of an announce packet?"
+  → trigger: yes - protocol wire format
+  </example>
+
+  <example>
+  user: "How does the key derivation work for links?"
+  → trigger: yes - cryptographic protocol detail
+  </example>
+
+  <example>
+  user: "Help me use the Python RNS library"
+  → trigger: no - using existing implementation, not implementing protocol
+  </example>
 color: blue
 model: sonnet
 tools:

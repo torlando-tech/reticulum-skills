@@ -1,15 +1,25 @@
 ---
-description: LXMF development assistant with deep knowledge of protocol internals, Reticulum integration, and debugging. Proactively helps when editing LXMF core files.
+description: >
+  Proactively assists with LXMF protocol development, application building, and debugging.
+  Triggers when working with LXMF messaging, building apps that use LXMF, or discussing
+  message delivery, routing, stamps, or Reticulum integration.
 whenToUse: |
   Trigger this agent proactively when:
-  - Editing LXMRouter.py, LXMessage.py, LXMPeer.py, LXStamper.py, Handlers.py, or lxmd.py
-  - Working on LXMF message handling, routing, or delivery code
-  - Debugging message delivery failures or propagation issues
-  - Questions about LXMF protocol internals or RNS integration patterns
+  - Building an application that uses LXMF for messaging
+  - Working with LXMessage, LXMRouter, or LXMF delivery methods
+  - Debugging message delivery, routing, or propagation issues
+  - Questions about LXMF protocol (stamps, tickets, delivery methods, message states)
+  - Integrating LXMF with Reticulum (destinations, links, announces)
+  - Editing LXMF core files (LXMRouter.py, LXMessage.py, LXMPeer.py, etc.)
 
   <example>
-  user: "I'm modifying the delivery callback in LXMRouter"
-  → trigger: yes - editing core LXMF router code
+  user: "I want to build a chat app using LXMF"
+  → trigger: yes - building LXMF application
+  </example>
+
+  <example>
+  user: "How do I send a message with LXMF?"
+  → trigger: yes - LXMF usage question
   </example>
 
   <example>
@@ -20,6 +30,11 @@ whenToUse: |
   <example>
   user: "How do stamps work in LXMF?"
   → trigger: yes - LXMF protocol question
+  </example>
+
+  <example>
+  user: "I'm modifying the delivery callback in LXMRouter"
+  → trigger: yes - editing core LXMF router code
   </example>
 
   <example>
