@@ -6,6 +6,7 @@ These documents are meant to serve as a "better than nothing" starting point for
 If you are already well versed in Reticulum, and especially if you are already developing applications for it, please do not waste your time reviewing these documents for accuracy, unless you are truly interested in what Claude interpreted. While I will be grateful for corrections, additions, etc., I do not wish to slow anyone down who is not using AI tools to assist their development. 
 
 Thank you,
+
 Torlando
 
 
