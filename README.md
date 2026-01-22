@@ -8,6 +8,7 @@ Claude Code plugins for [Reticulum Network Stack](https://reticulum.network/) an
 |--------|-------------|
 | **[reticulum-protocol](./reticulum-protocol)** | Comprehensive protocol knowledge for implementing Reticulum with byte-perfect interoperability |
 | **[lxmf-toolkit](./lxmf-toolkit)** | Development toolkit for LXMF (Lightweight Extensible Message Format) protocol |
+| **[nomadnet-micron-toolkit](./nomadnet-micron-toolkit)** | NomadNet page development and Micron markup language toolkit |
 
 ## Installation
 
@@ -17,14 +18,19 @@ Claude Code plugins for [Reticulum Network Stack](https://reticulum.network/) an
 # Add the marketplace
 claude plugin marketplace add https://github.com/torlando-tech/reticulum-skills
 
-# Install the plugin
+# Install a plugin (choose one or more)
+claude plugin install reticulum-protocol@reticulum-skills
 claude plugin install lxmf-toolkit@reticulum-skills
+claude plugin install nomadnet-micron-toolkit@reticulum-skills
 ```
 
 ### Local Development
 
 ```bash
+# Run Claude Code with a plugin directory
+claude --plugin-dir /path/to/reticulum-skills/reticulum-protocol
 claude --plugin-dir /path/to/reticulum-skills/lxmf-toolkit
+claude --plugin-dir /path/to/reticulum-skills/nomadnet-micron-toolkit
 ```
 
 ## Plugins
@@ -59,6 +65,19 @@ Development toolkit for the LXMF messaging protocol built on Reticulum.
   - `/lxmf-receiver` - Run example receiver script
   - `/lxmf-docs` - Protocol documentation lookup
 - **Agent**: `lxmf-developer` - Proactive assistance when editing LXMF code
+
+### nomadnet-micron-toolkit
+
+Development toolkit for NomadNet pages and the Micron markup language.
+
+**Components:**
+- **Skills**:
+  - `micron-syntax` - Complete Micron markup syntax reference (formatting, links, fields, colors)
+  - `nomadnet-pages` - Page structure, authentication, file serving, dynamic pages
+- **Commands**:
+  - `/micron-preview` - Preview Micron markup rendering
+  - `/nomadnet-page-create` - Scaffold a new NomadNet page
+- **Agent**: `nomadnet-developer` - Proactive assistance for NomadNet page development and Micron parsing
 
 ## Related Projects
 
