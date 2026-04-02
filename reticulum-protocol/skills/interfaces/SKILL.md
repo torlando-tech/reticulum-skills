@@ -184,6 +184,14 @@ All interfaces support optional `mode` setting that affects announce propagation
 
 **Use case**: Default for most interfaces, general mesh participation
 
+### MODE_POINT_TO_POINT (0x02) - Point-to-Point
+
+**Behavior**: Dedicated point-to-point link between two nodes.
+
+**Announce propagation**: Same as Full mode.
+
+**Use case**: Direct connections between two specific nodes, dedicated radio links, serial links
+
 ### MODE_GATEWAY (0x06) - Gateway
 
 **Behavior**: Same as Full, plus actively discovers unknown paths on behalf of clients.

@@ -297,9 +297,9 @@ def hkdf(length=None, derive_from=None, salt=None, context=None)
 - `context=None`
 
 **For Link encryption**:
-- `length=64` (512 bits)
+- `length=64` (512 bits) for AES-256-CBC mode, or `32` (256 bits) for AES-128-CBC
 - `derive_from=shared_key` (from ECDH)
-- `salt=None` (defaults to 32 zero bytes)
+- `salt=link_id` (the 16-byte link identifier)
 - `context=None`
 
 **Key splitting**:
@@ -458,7 +458,7 @@ except:
 - Signed data: `destination_hash + public_key + name_hash + random_hash + ratchet + app_data`
 
 **Link proofs**: Prove destination accepted link
-- Signed data: `link_id + destination_ephemeral_pub`
+- Signed data: `link_id + responder_pub_bytes + responder_sig_pub_bytes + signalling_bytes`
 
 **Packet proofs**: Prove packet receipt
 - Signed data: `packet_hash`

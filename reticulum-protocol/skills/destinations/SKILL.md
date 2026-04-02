@@ -179,7 +179,9 @@ PROVE_ALL  = 0x23  # Proof required for every packet
 
 **PROVE_APP**: Application sets proof requirement per packet. Flexible approach.
 
-**PROVE_ALL**: Every packet must be proven. Reliable but higher overhead. Default for most destinations.
+**PROVE_ALL**: Every packet must be proven. Reliable but higher overhead.
+
+**Note**: The default proof strategy for new destinations is `PROVE_NONE`.
 
 ## Collision Probability
 
@@ -274,9 +276,9 @@ destination = RNS.Destination(
     "app_name", "aspect1"       # Name components
 )
 
-# GROUP destination
+# GROUP destination (identity is optional — if None and IN, one is auto-created)
 destination = RNS.Destination(
-    None,                        # No identity for GROUP
+    identity,                    # Identity object (or None for auto-create)
     RNS.Destination.IN,
     RNS.Destination.GROUP,
     "app_name", "group_name"

@@ -101,11 +101,11 @@ With optional MTU signalling (+3 bytes): 86 bytes total
 Sent by destination back to initiator:
 
 ```
-[HEADER 19B][LKr 32B][SIGNATURE 64B]
+[HEADER 19B][SIGNATURE 64B][LKr 32B]
 Total: 115 bytes
 
-LKr = responder encryption public key (32B)
 SIGNATURE = Ed25519 signature (64B)
+LKr = responder encryption public key (32B)
 ```
 
 **Header** (19 bytes):
@@ -114,11 +114,11 @@ SIGNATURE = Ed25519 signature (64B)
 - LINK_ID (16B): Hash of link request packet
 - CONTEXT (1B): 0xFF (LRPROOF - Link Request Proof)
 
+**SIGNATURE** (64 bytes): Ed25519 signature of `link_id + LKr + responder_sig_pub + signalling_bytes` using destination's persistent signing key. The signing public key is not transmitted — the initiator already knows it from the destination's identity.
+
 **LKr** (32 bytes): Destination's ephemeral X25519 encryption public key
 
-**SIGNATURE** (64 bytes): Ed25519 signature of (link_id + LKr) using destination's persistent signing key. Proves destination's identity.
-
-With optional MTU signalling (+3 bytes): 118 bytes total
+With optional MTU signalling (+3 bytes appended): 118 bytes total
 
 ### Packet 3: RTT Measurement (99 bytes)
 
