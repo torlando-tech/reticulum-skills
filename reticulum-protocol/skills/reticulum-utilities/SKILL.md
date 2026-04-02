@@ -1,8 +1,6 @@
 ---
-skill_name: Reticulum Utilities
-version: 1.0.0
+name: reticulum-utilities
 description: Comprehensive guide to Reticulum's command-line utilities for network management, diagnostics, identity operations, file transfer, and remote execution
-color: blue
 triggers:
   - "rnpath"
   - "rnprobe"

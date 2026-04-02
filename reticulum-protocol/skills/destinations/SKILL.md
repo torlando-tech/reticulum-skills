@@ -1,3 +1,8 @@
+---
+name: destinations
+description: Reticulum's addressing system and destination types. Use when working with destination types (SINGLE, GROUP, PLAIN, LINK), destination hashes, aspect naming, or addressing.
+---
+
 # Destinations
 
 This skill provides knowledge about Reticulum's addressing system and destination types. Invoke when the user mentions destination types, single destination, group destination, destination hash, aspect naming, or addressing.

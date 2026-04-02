@@ -1,3 +1,8 @@
+---
+name: interfaces
+description: Reticulum's hardware abstraction layer and interface types. Use when working with RNode, AutoInterface, TCP, UDP, I2P, Serial, KISS, BLE interfaces, interface modes, IFAC, bandwidth allocation, or MTU.
+---
+
 # Interfaces
 
 This skill provides knowledge about Reticulum's hardware abstraction layer and interface types. Invoke when the user mentions interface types, RNode, AutoInterface, TCP interface, UDP interface, I2P, Serial, KISS, Pipe, Local, Weave, Backbone, interface modes, IFAC (Interface Access Code), announce propagation, bandwidth allocation, or MTU.

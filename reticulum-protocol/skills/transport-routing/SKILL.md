@@ -1,3 +1,8 @@
+---
+name: transport-routing
+description: Reticulum's transport layer and multi-hop routing system. Use when working with transport nodes, routing, multi-hop forwarding, path resolution, hop counts, PATHFINDER constants, or path requests.
+---
+
 # Transport & Routing
 
 This skill provides knowledge about Reticulum's transport layer and multi-hop routing system. Invoke when the user mentions transport layer, routing, multi-hop, path resolution, hop count, PATHFINDER constants, transport nodes, or path requests.

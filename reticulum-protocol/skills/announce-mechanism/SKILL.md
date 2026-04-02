@@ -1,3 +1,8 @@
+---
+name: announce-mechanism
+description: Detailed knowledge of Reticulum's announce mechanism for automatic path discovery. Use when working with announce propagation, path discovery, announce bandwidth, announce forwarding, path requests, or announce structure.
+---
+
 # Announce Mechanism
 
 This skill provides detailed knowledge about Reticulum's announce mechanism for automatic path discovery. Invoke when the user mentions announce, announce propagation, path discovery, announce bandwidth, announce forwarding, path request, or announce structure.

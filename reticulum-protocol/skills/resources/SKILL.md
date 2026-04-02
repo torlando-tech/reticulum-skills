@@ -1,3 +1,8 @@
+---
+name: resources
+description: Reticulum's resource transfer system for large data over links. Use when working with resource transfers, windowing, hashmaps, segments, compression, file transfers, or resource states.
+---
+
 # Resources
 
 This skill provides knowledge about Reticulum's resource transfer system for large data over links. Invoke when the user mentions large data transfer, resource transfer, windowing, hashmap, segments, compression, file transfer, or resource states.

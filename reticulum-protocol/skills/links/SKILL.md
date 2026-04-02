@@ -1,3 +1,8 @@
+---
+name: links
+description: Reticulum's link system — encrypted channels with forward secrecy. Use when working with link establishment, link requests, ECDH, ephemeral keys, forward secrecy, channels, keep-alive, or link timeouts.
+---
+
 # Links
 
 This skill provides knowledge about Reticulum's link system - encrypted channels with forward secrecy. Invoke when the user mentions link establishment, link request, ECDH, ephemeral keys, forward secrecy, keep-alive, or link timeouts.

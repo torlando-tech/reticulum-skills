@@ -1,3 +1,8 @@
+---
+name: cryptography-identity
+description: Reticulum's cryptographic primitives, identity structure, encryption tokens, and key derivation. Use when working with Ed25519, X25519, identity hashes, HKDF, token format, encryption, signatures, ratchets, or key derivation.
+---
+
 # Cryptography & Identity
 
 This skill provides knowledge about Reticulum's cryptographic primitives, identity structure, encryption tokens, and key derivation. Invoke when the user mentions cryptographic primitives, Ed25519, X25519, identity, HKDF, token format, encryption, signatures, or key derivation.
