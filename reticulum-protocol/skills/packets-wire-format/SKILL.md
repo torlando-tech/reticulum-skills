@@ -1,9 +1,6 @@
 ---
 name: packets-wire-format
 description: Reticulum's packet structure and wire format. Use when working with packet headers, MTU/MDU, packet types, header types (HEADER_1/HEADER_2), packet context flags, IFAC, or binary packet encoding.
-  - destination hash
-  - transport ID
-description: Deep technical knowledge about Reticulum packet structure, binary wire format, header encoding, packet types, MTU/MDU calculations, and IFAC handling. Use when analyzing packet construction, parsing binary protocol data, or debugging wire-level communication.
 ---
 
 # Packets & Wire Format
